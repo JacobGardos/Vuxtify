@@ -1,5 +1,5 @@
-import { Options as VuetifyLoaderOptions } from "@vuetify/loader-shared";
 import { VuetifyOptions } from "vuetify";
+import { VuetifyBuildPluginOptions } from "./util/builder.types";
 
 export interface ModuleOptions {
   /**
@@ -8,7 +8,8 @@ export interface ModuleOptions {
    * @see https://vuetifyjs.com/en/features/treeshaking/#treeshaking
    * @default false
    */
-  treeShaking: VuetifyLoaderOptions | false;
+  treeShaking: VuetifyBuildPluginOptions | boolean;
+
   /**
    * Options passed to createVuetify()
    * @see https://vuetifyjs.com/en/getting-started/installation/#manual-steps

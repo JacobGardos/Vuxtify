@@ -19,10 +19,16 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   const vuetify = createVuetify(vuetifyOptions);
   nuxtApp.vueApp.use(vuetify);
-
-  return {
-    provide: {
-      vuxtify: vuetify,
-    },
-  };
+  nuxtApp.provide("vuxtify", vuetify);
 });
+
+declare module "#app" {
+  interface NuxtApp {
+    $vuxtify: ReturnType<typeof createVuetify>;
+  }
+}
+declare module "vue" {
+  interface ComponentCustomProperties {
+    $vuxtify: ReturnType<typeof createVuetify>;
+  }
+}

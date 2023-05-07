@@ -3,19 +3,18 @@ import {
   addPlugin,
   addServerPlugin,
   addVitePlugin,
+  addWebpackPlugin,
   createResolver,
   defineNuxtModule,
 } from "@nuxt/kit";
 import { defu } from "defu";
 import { useDebugLogger } from "./debugging/logger.debug";
 import { ModuleOptions, PublicRuntimeOptions } from "./options.interface";
-import { hasMatchingDependency, hasMatchingDevDependency } from "./util/import-pkg";
+import { VitePluginVuetify, WebpackPluginVuetify } from "./util/builder.types";
+import { ensurePackageInstalled } from "./util/ensure-package-installed";
 import vuetifyComposables from "./vuetify.composables";
 
 export const MODULE_NAME = "vuxtify";
-
-// 1. Start doing the Webpack plugin, check they have sass-loader installed && check if they have webpack-vuetify-plugin installed
-// 2. Remove the helper function for defining the options
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
@@ -34,28 +33,49 @@ export default defineNuxtModule<ModuleOptions>({
     const resolver = createResolver(import.meta.url);
     const logger = useDebugLogger();
 
+    if (nuxt.options._prepare) {
+      return logger.debug("Skipping module setup during nuxt prepare");
+    }
+
     if (options.treeShaking) {
-      hasMatchingDevDependency("sass");
+      logger.debug("TreeShaking Enabled");
+
+      if (typeof options.treeShaking === "boolean") options.treeShaking = {};
+
+      // Resolve relative paths to absolute paths
+      if (typeof options.treeShaking.styles == "object" && options.treeShaking.styles.configFile) {
+        options.treeShaking.styles.configFile = await resolver.resolvePath(options.treeShaking.styles.configFile);
+      }
 
       switch (nuxt.options.builder) {
-        case "@nuxt/vite-builder":
-          logger.debug("Installing vite-plugin-vuetify");
-          hasMatchingDependency("vite-plugin-vuetify");
+        case "@nuxt/vite-builder": {
+          const VPV = "vite-plugin-vuetify";
+          await ensurePackageInstalled([{ name: "sass", dev: true }, VPV]);
 
-          const vitePluginVuetify: typeof import("vite-plugin-vuetify").default = require("vite-plugin-vuetify");
-          addVitePlugin(vitePluginVuetify(options.treeShaking));
+          const vitePluginVuetify = VitePluginVuetify(options.treeShaking);
+          addVitePlugin(vitePluginVuetify);
 
           // Fix For - https://github.com/vuetifyjs/vuetify-loader/issues/290
           addServerPlugin(resolver.resolve("./runtime/server-plugin"));
           nuxt.options.sourcemap.server = false;
           nuxt.options.sourcemap.client = false;
-          break;
 
-        case "@nuxt/webpack-builder":
-          logger.debug("Installing webpack-vuetify-plugin");
+          logger.debug(`Added ${VPV}`);
           break;
-        default:
+        }
+        case "@nuxt/webpack-builder": {
+          const WPV = "webpack-plugin-vuetify";
+          await ensurePackageInstalled([{ name: "sass", dev: true }, { name: "sass-loader", dev: true }, WPV]);
+
+          const webpackPluginVuetify = WebpackPluginVuetify(options.treeShaking);
+          addWebpackPlugin(webpackPluginVuetify);
+
+          logger.debug(`Added ${WPV}`);
+          break;
+        }
+        default: {
           throw new Error(`Tree shaking is not supported for ${nuxt.options.builder}`);
+        }
       }
     }
 

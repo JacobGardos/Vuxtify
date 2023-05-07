@@ -24,15 +24,21 @@
     "dev:build": "nuxi build playground",
     "dev:preview": "nuxi preview playground",
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
-    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "release": "yarn run lint && yarn run test && yarn run prepack && changelogen --release && yarn publish && git push --follow-tags",
+    "local:release": "yarn dev:build && yarn lint && yarn prepack && yarn pack",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch --reporter=verbose"
   },
   "dependencies": {
+    "@antfu/install-pkg": "^0.1.1",
     "@nuxt/kit": "^3.4.3",
+    "@nuxt/webpack-builder": "^3.4.3",
     "compare-versions": "^6.0.0-rc.1",
-    "vite-plugin-vuetify": "^1.0.2",
+    "defu": "^6.1.2",
+    "local-pkg": "^0.4.3",
+    "picocolors": "^1.0.0",
+    "prompts": "^2.4.2",
     "vuetify": "^3.2.2"
   },
   "devDependencies": {
@@ -41,11 +47,27 @@
     "@nuxt/schema": "^3.4.3",
     "@nuxt/test-utils": "^3.4.3",
     "@types/node": "^18",
+    "@types/prompts": "^2.4.4",
     "changelogen": "^0.5.3",
     "eslint": "^8.39.0",
     "nuxt": "^3.4.3",
     "playwright": "^1.33.0",
     "sass": "^1.62.1",
-    "vitest": "^0.30.1"
+    "sass-loader": "^13.2.2",
+    "vitest": "^0.30.1",
+    "vite-plugin-vuetify": "^1.0.2",
+    "webpack-plugin-vuetify": "^2.0.1"
+  },
+  "peerDependencies": {
+    "vite-plugin-vuetify": "^1.0.2",
+    "webpack-plugin-vuetify": "^2.0.1"
+  },
+  "peerDependenciesMeta": {
+    "vite-plugin-vuetify": {
+      "optional": true
+    },
+    "webpack-plugin-vuetify": {
+      "optional": true
+    }
   }
 }
