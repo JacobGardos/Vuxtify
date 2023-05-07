@@ -76,5 +76,3 @@ export default defineNuxtModule<ModuleOptions>({
     addPlugin(resolver.resolve("./runtime/plugin"));
   },
 });
-
-export * from "./helpers/define-vuxtify-options";

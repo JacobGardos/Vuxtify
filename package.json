@@ -32,8 +32,8 @@
   "dependencies": {
     "@nuxt/kit": "^3.4.3",
     "compare-versions": "^6.0.0-rc.1",
-    "vuetify": "^3.2.2",
-    "vite-plugin-vuetify": "^1.0.2"
+    "vite-plugin-vuetify": "^1.0.2",
+    "vuetify": "^3.2.2"
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^0.1.1",
@@ -41,7 +41,6 @@
     "@nuxt/schema": "^3.4.3",
     "@nuxt/test-utils": "^3.4.3",
     "@types/node": "^18",
-    "@vitest/browser": "^0.31.0",
     "changelogen": "^0.5.3",
     "eslint": "^8.39.0",
     "nuxt": "^3.4.3",

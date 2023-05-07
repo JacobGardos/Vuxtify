@@ -5,6 +5,9 @@
         <h1>Theme Name {{ theme.name }}</h1>
       </v-col>
       <v-col cols="12">
+        <v-btn id="default-btn">Button</v-btn>
+      </v-col>
+      <v-col cols="12">
         <v-btn id="primary-btn" color="primary">Primary Btn</v-btn>
       </v-col>
     </v-row>
