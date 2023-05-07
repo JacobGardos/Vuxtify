@@ -1,0 +1,6 @@
+@use "vuetify/settings" with (
+  $utilities: false,
+  $button-height: 40px,
+  $button-color: green,
+  $button-font-weight: 700
+);

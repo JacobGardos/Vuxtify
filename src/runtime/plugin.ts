@@ -7,12 +7,12 @@ import * as directives from "vuetify/directives";
 import type { PublicRuntimeOptions as VuxtifyRuntimeOptions } from "../options.interface";
 
 export default defineNuxtPlugin((nuxtApp) => {
-  const { vOptions, treeShaking, ssr }: VuxtifyRuntimeOptions = useRuntimeConfig().public.vuxtify;
+  const { vOptions, treeShaking, ssr, autoImport }: VuxtifyRuntimeOptions = useRuntimeConfig().public.vuxtify;
   const vuetifyOptions = defu<VuetifyOptions, Array<VuetifyOptions>>(vOptions, {
     ssr,
   });
 
-  if (!treeShaking) {
+  if (!treeShaking && autoImport) {
     vuetifyOptions["components"] = components;
     vuetifyOptions["directives"] = directives;
   }
