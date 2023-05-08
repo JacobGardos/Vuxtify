@@ -24,7 +24,7 @@ export async function ensurePackageInstalled(pkgs: ModuleDependency | ModuleDepe
     type: "confirm",
     name: "install",
     message: c.reset(
-      `Can not find the following dependencies ${c.green(
+      `Cannot find the following dependencies ${c.green(
         missingPkgs.map((pkg) => (typeof pkg === "string" ? pkg : pkg.name)).join(",")
       )}. Do you want to install ?`
     ),
@@ -33,11 +33,11 @@ export async function ensurePackageInstalled(pkgs: ModuleDependency | ModuleDepe
   if (install) {
     const installedPkgs: string[] = [];
 
-    const devDependencies = _pkgs.filter((pkg) => {
+    const devDependencies = missingPkgs.filter((pkg) => {
       return typeof pkg !== "string" && pkg.dev;
     });
 
-    const dependencies = _pkgs.filter((pkg) => {
+    const dependencies = missingPkgs.filter((pkg) => {
       return typeof pkg == "string" || !pkg.dev;
     });
 

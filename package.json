@@ -25,7 +25,7 @@
     "dev:preview": "nuxi preview playground",
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
     "release": "yarn run lint && yarn run test && yarn run prepack && changelogen --release && yarn publish && git push --follow-tags",
-    "local:release": "yarn dev:build && yarn lint && yarn prepack && yarn pack",
+    "local:release": "yarn run dev:prepare && yarn run lint && yarn pack",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch --reporter=verbose"
