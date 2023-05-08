@@ -21,6 +21,12 @@ export interface ModuleOptions {
    * @default false
    */
   debug: boolean;
+  /**
+   * Enables compression of public assets by enabling nitro compressPublicAssets.
+   * Helps to improve light house scores.
+   * @default false
+   */
+  compressAssets: boolean;
 }
 
 export interface PublicRuntimeOptions {

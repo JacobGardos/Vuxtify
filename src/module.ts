@@ -28,6 +28,7 @@ export default defineNuxtModule<ModuleOptions>({
     treeShaking: false,
     vuetify: {},
     debug: false,
+    compressAssets: false,
   },
   async setup(options, nuxt) {
     const resolver = createResolver(import.meta.url);
@@ -82,6 +83,7 @@ export default defineNuxtModule<ModuleOptions>({
     // --- Config Setup
     nuxt.options.css.push("vuetify/styles");
     nuxt.options.build.transpile.push("vuetify");
+    nuxt.options.nitro.compressPublicAssets = options.compressAssets;
 
     // --- Runtime Setup
     addImportsSources(vuetifyComposables);
