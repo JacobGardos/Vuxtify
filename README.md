@@ -9,7 +9,7 @@ A Nuxt Module for Vuetify 3
 
 - [✨ &nbsp;Release Notes](/CHANGELOG.md)
   <!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/vuxtify?file=playground%2Fapp.vue) -->
-  <!-- - [📖 &nbsp;Documentation](https://example.com) -->
+- [📖 &nbsp;Documentation](https://jacobgardos.github.io/Vuxtify/)
 
 ## Features
 

@@ -7,12 +7,17 @@
     "build": "nuxi build",
     "generate": "nuxi generate",
     "preview": "nuxi preview",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "deploy": "nuxt generate && touch .output/public/.nojekyll && gh-pages --dotfiles -d .output/public"
   },
   "devDependencies": {
     "@nuxt-themes/docus": "^1.9.0",
     "@nuxt/eslint-config": "^0.1.1",
     "eslint": "^8.35.0",
+    "gh-pages": "^5.0.0",
     "nuxt": "3.3.3"
+  },
+  "dependencies": {
+    "touch-cli": "^0.0.1"
   }
 }
