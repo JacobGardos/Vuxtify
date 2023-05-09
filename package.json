@@ -1,6 +1,6 @@
 {
   "name": "vuxtify",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Nuxt 3 Module For Vuetify",
   "repository": "https://github.com/JacobGardos/Vuxtify.git",
   "author": "Jacob Gardos <49768172+JacobGardos@users.noreply.github.com>",
