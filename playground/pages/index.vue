@@ -8,6 +8,14 @@
         <pre>{{ $vuetify.theme.name }}</pre>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col cols="12">
+        <h1>Directive Test</h1>
+      </v-col>
+      <v-col cols="12">
+        <div v-ripple class="text-center elevation-2 pa-12 text-h5">HTML element with v-ripple</div>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
