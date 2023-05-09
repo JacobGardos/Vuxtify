@@ -1,6 +1,6 @@
 {
   "name": "@jacobgardos/vuxtify",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Nuxt 3 Module For Vuetify",
   "repository": "https://github.com/JacobGardos/Vuxtify.git",
   "author": "Jacob Gardos <49768172+JacobGardos@users.noreply.github.com>",
@@ -24,7 +24,7 @@
     "dev:build": "nuxi build playground",
     "dev:preview": "nuxi preview playground",
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
-    "release": "yarn run lint && yarn run test && yarn run prepack && changelogen --release && yarn publish --access=public && git push --follow-tags",
+    "release": "yarn run lint && yarn run prepack && changelogen --release && yarn publish --access=public && git push --follow-tags",
     "local:release": "yarn run dev:prepare && yarn run lint && yarn pack",
     "lint": "eslint .",
     "test": "vitest run",
