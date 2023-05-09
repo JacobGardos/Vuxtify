@@ -9,13 +9,6 @@ export interface ModuleOptions {
    * @default false
    */
   treeShaking: VuetifyBuildPluginOptions | boolean;
-
-  /**
-   * Options passed to createVuetify()
-   * @see https://vuetifyjs.com/en/getting-started/installation/#manual-steps
-   * @default {}
-   */
-  vuetify: VuetifyOptions;
   /**
    * Enables the output of debug messages in the console.
    * @default false
@@ -29,17 +22,37 @@ export interface ModuleOptions {
   compressAssets: boolean;
 }
 
-export interface PublicRuntimeOptions {
+export interface VuxtifyRuntimeConfig {
   /**
-   * The users options for the vuetify module.
+   * Whether or not to import components and directives from vuetify directly.
+   * @internal
    */
-  vOptions: ModuleOptions["vuetify"];
+  treeShaking: boolean;
   /**
-   * The users options for the tree shaking module.
-   */
-  treeShaking: ModuleOptions["treeShaking"];
-  /**
-   * Whether or not the users app is running in SSR mode.
+   * Whether or not the app is running in SSR mode. (Based on nuxtConfig.ssr)
+   * @internal
    */
   ssr: boolean;
 }
+
+export interface VuxtifyAppConfig {
+  /**
+   * Options passed to createVuetify()
+   * @see https://vuetifyjs.com/en/getting-started/installation/#manual-steps
+   * @default {}
+   */
+  vuetify?: Omit<VuetifyOptions, "components" | "directives" | "ssr">;
+}
+
+declare module "nuxt/schema" {
+  interface AppConfigInput extends VuxtifyAppConfig {}
+
+  interface PublicRuntimeConfig {
+    /**
+     * Vuxtify Module Options
+     */
+    vuxtify: VuxtifyRuntimeConfig;
+  }
+}
+
+export {};

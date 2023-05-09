@@ -5,11 +5,12 @@ import { customLightTheme } from "./util/theme";
 
 describe("Basic", async () => {
   await setupVuxtify({
-    vuxtify: {
+    appConfig: {
       vuetify: {
         theme: {
           defaultTheme: "customLightTheme",
           themes: {
+            // @ts-expect-error
             customLightTheme,
           },
         },

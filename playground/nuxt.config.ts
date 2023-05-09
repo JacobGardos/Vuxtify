@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   builder: "vite",
   vuxtify: {
     debug: true,
+    compressAssets: true,
     treeShaking: {
       styles: {
         configFile: "./assets/settings.scss",

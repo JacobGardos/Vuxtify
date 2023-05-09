@@ -9,24 +9,21 @@ import {
 } from "@nuxt/kit";
 import { defu } from "defu";
 import { useDebugLogger } from "./debugging/logger.debug";
-import { ModuleOptions, PublicRuntimeOptions } from "./options.interface";
+import { ModuleOptions, VuxtifyRuntimeConfig as RuntimeCfg } from "./options.interface";
 import { VitePluginVuetify, WebpackPluginVuetify } from "./util/builder.types";
 import { ensurePackageInstalled } from "./util/ensure-package-installed";
 import vuetifyComposables from "./vuetify.composables";
 
-export const MODULE_NAME = "vuxtify";
-
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: MODULE_NAME,
-    configKey: MODULE_NAME,
+    name: "vuxtify",
+    configKey: "vuxtify",
     compatibility: {
       nuxt: "^3.0.0",
     },
   },
   defaults: {
     treeShaking: false,
-    vuetify: {},
     debug: false,
     compressAssets: false,
   },
@@ -87,12 +84,11 @@ export default defineNuxtModule<ModuleOptions>({
 
     // --- Runtime Setup
     addImportsSources(vuetifyComposables);
-    nuxt.options.runtimeConfig.public[MODULE_NAME] = defu<any, Array<PublicRuntimeOptions>>(
-      nuxt.options.runtimeConfig.public[MODULE_NAME],
+    nuxt.options.runtimeConfig.public.vuxtify = defu<RuntimeCfg, Array<RuntimeCfg>>(
+      nuxt.options.runtimeConfig.public.vuxtify,
       {
-        vOptions: options.vuetify,
-        treeShaking: options.treeShaking,
         ssr: nuxt.options.ssr,
+        treeShaking: options.treeShaking ? true : false,
       }
     );
     addPlugin(resolver.resolve("./runtime/plugin"));

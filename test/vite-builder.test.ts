@@ -14,10 +14,13 @@ describe("Vite", async () => {
           configFile: "./assets/settings.scss",
         },
       },
+    },
+    appConfig: {
       vuetify: {
         theme: {
           defaultTheme: "customLightTheme",
           themes: {
+            // @ts-expect-error
             customLightTheme,
           },
         },

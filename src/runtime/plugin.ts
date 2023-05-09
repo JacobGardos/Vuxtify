@@ -1,17 +1,14 @@
 import { defineNuxtPlugin } from "#app";
-import { useRuntimeConfig } from "#imports";
-import { defu } from "defu";
-import { createVuetify, VuetifyOptions } from "vuetify";
+import { useAppConfig, useRuntimeConfig } from "#imports";
+import { VuetifyOptions, createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
-import type { PublicRuntimeOptions as VuxtifyRuntimeOptions } from "../options.interface";
 
 export default defineNuxtPlugin((nuxtApp) => {
-  const { vOptions, treeShaking, ssr }: VuxtifyRuntimeOptions = useRuntimeConfig().public.vuxtify;
-  const vuetifyOptions = defu<VuetifyOptions, Array<VuetifyOptions>>(vOptions, {
-    ssr,
-  });
+  const { treeShaking, ssr } = useRuntimeConfig().public.vuxtify;
+  const vuetifyOptions: VuetifyOptions = useAppConfig()?.vuetify || {};
 
+  vuetifyOptions["ssr"] = ssr;
   if (!treeShaking) {
     vuetifyOptions["components"] = components;
     vuetifyOptions["directives"] = directives;
@@ -19,16 +16,11 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   const vuetify = createVuetify(vuetifyOptions);
   nuxtApp.vueApp.use(vuetify);
-  nuxtApp.provide("vuxtify", vuetify);
+  nuxtApp.provide("vuetify", vuetify);
 });
 
 declare module "#app" {
   interface NuxtApp {
-    $vuxtify: ReturnType<typeof createVuetify>;
-  }
-}
-declare module "vue" {
-  interface ComponentCustomProperties {
-    $vuxtify: ReturnType<typeof createVuetify>;
+    $vuetify: ReturnType<typeof createVuetify>;
   }
 }
