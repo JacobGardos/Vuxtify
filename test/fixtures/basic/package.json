@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "name": "basic",
+  "type": "module",
+  "dependencies": {
+    "vite-plugin-vuetify": "^1.0.2",
+    "webpack-plugin-vuetify": "^2.0.1"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "^0.4.5",
+    "sass": "^1.62.1",
+    "sass-loader": "^13.2.2"
+  }
+}
